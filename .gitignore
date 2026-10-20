@@ -7,3 +7,7 @@ dist/
 .DS_Store
 *.tsbuildinfo
 workspace/
+/agent/
+.venv/
+*.egg-info/
+/build/

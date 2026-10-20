@@ -207,3 +207,4 @@ export * from "./clarification.js";
 export * from "./workflow.js";
 
 export * from "./appearance.js";
+export * from "./product-model.js";

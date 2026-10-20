@@ -200,6 +200,8 @@ Run only one server process per workspace and application data directory. This A
 
 ## Code Layout
 
+The Python [product model engine](model/README.md) provides DSL v2 contracts, a snapshot compiler, lightweight kinematics/logic simulation, and view projections. The project's **3D models** tab now connects it to the server and Design Context, alongside the existing CAD/STL viewer. See [engine integration](docs/PRODUCT_MODEL.md) for setup, APIs and limitations.
+
 ```text
 packages/core/src/design.ts       Seven-role and Design Context contracts
 packages/core/src/pi.ts           Isolated Pi 1.3 SDK session factory

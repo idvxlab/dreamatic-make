@@ -2415,3 +2415,59 @@ td a {
 
 /* The card itself selects; explicit actions remain separate click targets. */
 .concept-option{position:relative}.concept-card-select{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px;background:transparent;z-index:1;cursor:pointer;padding:0}.concept-card-select:hover{background:transparent}.concept-card-select:focus-visible{outline:2px solid var(--success);outline-offset:-3px}.concept-card-select:disabled{cursor:default}.concept-selected-badge{position:absolute;left:10px;top:10px;z-index:2;pointer-events:none;display:inline-flex;gap:4px;align-items:center;background:var(--panel);color:var(--success);border:1px solid var(--line);border-radius:20px;padding:4px 8px;font-size:11px}.concept-image{cursor:inherit}.concept-enlarge{position:absolute;right:10px;bottom:10px;z-index:2;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;padding:7px;background:var(--panel);color:var(--ink);cursor:zoom-in}.concept-image .concept-enlarge svg{position:static;box-sizing:border-box;background:none;color:inherit;padding:0;border-radius:0}.concept-actions button,.concept-history-toggle,.concept-history button{position:relative;z-index:2}.concept-refine-button{font-size:12px;padding:7px 12px;min-height:32px}
+.engine-workspace { margin-bottom: 24px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--panel); }
+.engine-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px; background: linear-gradient(110deg, var(--soft), var(--panel)); }
+.engine-eyebrow { font: 10px monospace; letter-spacing: 2px; color: #6b7f4b; }
+.engine-header h2 { font-size: 22px; margin: 6px 0; }
+.engine-header p, .engine-note { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.engine-header .primary, .engine-source-bar button, .engine-examples button, .engine-timeline button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.engine-source-bar, .engine-examples, .engine-status { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--line); font-size: 11px; }
+.engine-source-bar label { display: flex; flex-direction: column; gap: 5px; max-width: 215px; font-size: 10px; color: var(--muted); }
+.engine-source-bar input { width: 100%; font-size: 10px; }
+.engine-examples { background: var(--soft); }
+.engine-workspace > .error, .engine-workspace > .provider-notice, .engine-workspace > .engine-note { margin: 12px 20px; }
+.engine-empty { padding: 55px 24px; display: grid; justify-items: center; text-align: center; gap: 14px; color: var(--muted); }
+.engine-empty h3 { color: var(--ink); font-size: 18px; }
+.engine-empty p { font-size: 12px; max-width: 560px; line-height: 1.8; }
+.engine-badge { border-radius: 20px; padding: 5px 9px; background: #e7edda; color: #4c6230; }
+.engine-status a { margin-left: auto; }
+.engine-tabs { display: flex; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 14px; }
+.engine-tabs button { display: flex; align-items: center; gap: 7px; padding: 15px; font-size: 12px; border: 0; background: transparent; border-bottom: 2px solid transparent; }
+.engine-tabs button.selected { border-bottom-color: #74954f; color: #4f712c; background: #eff3e6; }
+.engine-main { display: grid; grid-template-columns: minmax(0, 1fr) 270px; min-height: 420px; }
+.engine-viewport { min-width: 0; max-height: 560px; overflow: auto; }
+.engine-canvas-wrap { position: relative; height: 440px; }
+.engine-canvas { width: 100%; height: 100%; }
+.engine-canvas canvas { display: block; touch-action: none; }
+.engine-overlay { position: absolute; top: 40%; left: 10%; right: 10%; text-align: center; font-size: 13px; color: #58644a; pointer-events: none; }
+.engine-inspector { padding: 18px; border-left: 1px solid var(--line); background: var(--panel); min-width: 0; max-height: 560px; overflow: auto; }
+.engine-inspector h3 { font-size: 13px; margin-bottom: 14px; }
+.engine-inspector h4 { font-size: 12px; margin: 15px 0; }
+.engine-inspector label { display: grid; gap: 8px; font-size: 11px; }
+.engine-inspector select { width: 100%; min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); font-size: 11px; }
+.engine-inspector pre { white-space: pre-wrap; word-break: break-word; font-size: 10px; line-height: 1.65; margin: 16px 0; }
+.engine-inspector p { font-size: 11px; margin: 14px 0; overflow-wrap: anywhere; line-height: 1.6; }
+.engine-inspector button { text-decoration: underline; text-align: left; background: transparent; border: 0; }
+.engine-timeline { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-top: 1px solid var(--line); }
+.engine-timeline input { flex: 1; min-width: 30px; accent-color: #789c4c; }
+.engine-timeline code { font-size: 11px; white-space: nowrap; }
+.engine-graph { padding: 15px; }
+.engine-graph svg { display: block; width: 100%; min-height: 120px; }
+.engine-graph g[role=button] { cursor: pointer; }
+.engine-viewport > .engine-note { padding: 12px 20px; }
+.engine-readings { padding: 0 20px 18px; font-size: 11px; }
+.engine-readings > div { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.engine-readings span { color: var(--muted); text-align: right; }
+.engine-diagnostics { border-top: 1px solid var(--line); padding: 16px 20px; font-size: 11px; }
+.engine-diagnostics summary { cursor: pointer; font-weight: 600; }
+.engine-diagnostics > p { margin: 12px 0; color: var(--muted); line-height: 1.7; overflow-wrap: anywhere; }
+.engine-diagnostic { padding: 10px; border-left: 3px solid #a9ba8c; background: var(--soft); display: grid; gap: 5px; margin-top: 8px; overflow-wrap: anywhere; }
+.engine-diagnostic.error { border-color: #ce6650; color: var(--error); }
+.engine-diagnostic.warning { border-color: #bca353; }
+.engine-diagnostic button { font: 10px monospace; text-align: left; text-decoration: underline; border: 0; background: transparent; }
+@media (max-width: 900px) {
+  .engine-main { grid-template-columns: minmax(0, 1fr); }
+  .engine-inspector { border-left: 0; border-top: 1px solid var(--line); max-height: 240px; }
+  .engine-header { align-items: flex-start; flex-direction: column; }
+  .engine-tabs button { padding: 12px 9px; font-size: 11px; }
+}
