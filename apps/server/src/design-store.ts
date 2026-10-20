@@ -135,8 +135,11 @@ export class DesignStore {
     input: unknown,
     readSet: Record<string, number> = {},
     trustedAppearance = false,
+    trustedModel = false,
   ) {
     const body = record(input);
+    if (["mechanical.product_model", "validation.product_model"].includes(String(body.id)) && !trustedModel)
+      throw new InputError("Product model entries can only be changed through model import and simulation actions", 403);
     if (String(body.id).startsWith("appearance.") && !trustedAppearance) throw new InputError("Appearance workflow entries can only be changed through appearance tools and review actions", 403);
     const id = identifier(body.id),
       title = text(body.title, "title", 160),

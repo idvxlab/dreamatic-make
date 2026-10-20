@@ -33,6 +33,9 @@ export async function request<T>(
   return value as T;
 }
 export const api = {
+  productModel: (id: string, signal?: AbortSignal) => request<import("@harness/core").ProductModelResponse>(`/projects/${id}/model`, "GET", undefined, signal),
+  modelAction: (id: string, action: "import" | "simulate" | "demo", body: unknown, signal?: AbortSignal) =>
+    request<import("@harness/core").ProductModelResponse>(`/projects/${id}/model/${action}`, "POST", body, signal),
   config: () => request<Config>("/config"),
   projects: () => request<Project[]>("/projects"),
   saveConfig: (body: unknown) => request<Config>("/config", "PUT", body),

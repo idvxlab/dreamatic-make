@@ -11,6 +11,8 @@ import { Store } from "./store.js";
 import { DesignStore } from "./design-store.js";
 import { AgentRuntime } from "./agents/runtime.js";
 import { designAPI } from "./design-api.js";
+import { ProductModelService } from "./product-model.js";
+import { productModelAPI } from "./product-model-api.js";
 
 const types: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
@@ -45,12 +47,13 @@ async function body(req: IncomingMessage): Promise<unknown> {
 export function createApp(
   store: Store,
   webDir?: string,
-  options?: { design?: DesignStore; runtime?: AgentRuntime },
+  options?: { design?: DesignStore; runtime?: AgentRuntime; productModel?: ProductModelService },
 ) {
   const design = options?.design ?? new DesignStore(store);
   const runtime = options?.runtime ?? new AgentRuntime(design);
+  const productModel = options?.productModel ?? new ProductModelService(design);
   let diagnosing = false;
-  return createServer(async (req, res) => {
+  const server = createServer(async (req, res) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "no-referrer");
     try {
@@ -69,6 +72,7 @@ export function createApp(
       const url = new URL(req.url ?? "/", `http://${host}`),
         path = url.pathname,
         method = req.method;
+      if (await productModelAPI(req, res, url, productModel, () => body(req), (status, value) => json(res, status, value))) return;
       if (path === "/api/health" && method === "GET")
         return json(res, 200, {
           status: "ok",
@@ -176,4 +180,6 @@ export function createApp(
       }
     }
   });
+  server.on("close", () => productModel.shutdown());
+  return server;
 }

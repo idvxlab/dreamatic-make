@@ -29,6 +29,20 @@ def dispatch(method, bundle, scenario=None):
         if scenario is None:
             raise ValueError("simulate requires a scenario")
         return simulate(ir, scenario).model_dump(mode="json")
+    if method in ("preview", "workspace"):
+        if scenario is None:
+            raise ValueError(f"{method} requires a scenario")
+        # Preview resolves initial body placement, but never publishes a simulation claim.
+        initial = scenario.model_copy(update={"duration_s": 0.0,
+            "stimuli": tuple(event for event in scenario.stimuli if event.time_s == 0),
+            "joint_commands": tuple(command for command in scenario.joint_commands if command.time_s == 0)})
+        run = simulate(ir, initial if method == "preview" else scenario)
+        frame_run = run if run.frames else None
+        return {"snapshot_id": ir.snapshot_id, "input_revisions": dict(ir.input_revisions),
+                "diagnostics": [d.model_dump(mode="json") for d in run.diagnostics],
+                "scene": project_scene(ir, frame_run, 0), "circuit": project_circuit(ir, frame_run, 0),
+                "flow": project_flow(ir), "result": run.model_dump(mode="json") if method == "workspace" else None,
+                "preview_status": run.status}
     if method == "scene":
         return project_scene(ir)
     if method == "circuit":
@@ -40,7 +54,7 @@ def dispatch(method, bundle, scenario=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Offline product model tools")
-    parser.add_argument("method", choices=["validate", "compile", "simulate", "scene", "circuit", "flow", "schema", "request"])
+    parser.add_argument("method", choices=["validate", "compile", "simulate", "scene", "circuit", "flow", "preview", "workspace", "schema", "request"])
     parser.add_argument("input", nargs="?")
     parser.add_argument("--scenario")
     args = parser.parse_args(argv)
@@ -71,7 +85,8 @@ def main(argv=None):
             output = dispatch(args.method, bundle, scenario)
         print(json.dumps(output, ensure_ascii=True, allow_nan=False, separators=(",", ":")))
         payload = output.get("payload", output)
-        return 0 if payload.get("status", "completed") == "completed" else 2
+        status = (payload.get("result") or {}).get("status", payload.get("status", payload.get("preview_status", "completed")))
+        return 0 if status == "completed" else 2
     except (ValueError, OSError, KeyError, RecursionError) as exc:
         if isinstance(exc, ModelError):
             details = [d.model_dump(mode="json") for d in exc.diagnostics]

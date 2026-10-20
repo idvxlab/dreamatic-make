@@ -45,6 +45,7 @@ import { DesignReviewCard } from "./DesignReviewCard";
 import { ClarificationCard } from "./ClarificationCard";
 import { ContextEditor } from "./ContextEditor";
 const ModelViewer = lazy(() => import("./ModelViewer"));
+const ProductModelWorkspace = lazy(() => import("./ProductModelWorkspace"));
 const active = (status: string) => ["queued", "running"].includes(status);
 function link(value: unknown) {
   return typeof value === "string" && /^https?:\/\//i.test(value)
@@ -637,6 +638,9 @@ function ProjectWorkspace({
               )}
             </section>
           )}
+          {tab === "models" && <Suspense fallback={<div className="loading"><LoaderCircle className="spin" /></div>}>
+            <ProductModelWorkspace projectId={project.id} entries={entries} onChanged={() => refreshRef.current()} t={t} />
+          </Suspense>}
           {(tab === "models" || tab === "files") && (
             <div className="artifact-workspace">
               <aside className="artifact-list">

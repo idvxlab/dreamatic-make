@@ -2,7 +2,7 @@
 
 This Python package implements the executable core of the product DSL v2 proposal (`0.2.0-proposal`). It is an offline library and CLI, independent of the existing Node.js server. It never reads `.env`, invokes a model provider, updates Design Context, purchases components, or executes code from a DSL record.
 
-**The sample models are synthetic assumptions. Successful simulation is not physical validation.** Context remains authoritative when this package is later integrated into Dreamatic Make; a model bundle is an immutable snapshot input, not another canonical BOM.
+**The sample models are synthetic assumptions. Successful simulation is not physical validation.** The [Node adapter and web workspace](../docs/PRODUCT_MODEL.md) integrate this package with Dreamatic Make while keeping Context authoritative. A model bundle is an immutable snapshot input, not another canonical BOM.
 
 ## Install and run
 

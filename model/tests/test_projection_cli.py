@@ -11,6 +11,22 @@ from model.projection.flow import project_flow
 
 
 class ProjectionAndCliTests(unittest.TestCase):
+    def test_workspace_preview_and_run_share_snapshot_and_initial_placement(self):
+        from model.cli import dispatch
+        bundle, scenario = actuator_example()
+        preview = dispatch("preview", bundle, scenario)
+        workspace = dispatch("workspace", bundle, scenario)
+        self.assertIsNone(preview["result"])
+        self.assertEqual(preview["preview_status"], "completed")
+        self.assertEqual(workspace["result"]["status"], "completed")
+        self.assertGreater(len(workspace["result"]["frames"]), 1)
+        self.assertEqual(preview["scene"]["bodies"], workspace["scene"]["bodies"])
+        self.assertEqual(preview["snapshot_id"], workspace["result"]["snapshot_id"])
+        self.assertTrue(all(body["world_pose"] is not None for body in preview["scene"]["bodies"]))
+        stale = dispatch("preview", bundle, scenario.model_copy(update={"snapshot_id": "0" * 64}))
+        self.assertEqual(stale["preview_status"], "failed")
+        self.assertTrue(any(d["code"] == "snapshot.stale" for d in stale["diagnostics"]))
+
     def test_views_share_identity_and_snapshot(self):
         bundle, scenario = actuator_example()
         ir = compile_model(bundle)

@@ -200,7 +200,7 @@ Run only one server process per workspace and application data directory. This A
 
 ## Code Layout
 
-The standalone Python [product model engine](model/README.md) provides the first executable DSL v2 contracts, snapshot compiler, lightweight kinematics/logic simulation, and view projections. It includes synthetic offline examples and tests. It is not yet connected to the server, Design Context, or frontend; see its README for supported calculations and explicit limitations.
+The Python [product model engine](model/README.md) provides DSL v2 contracts, a snapshot compiler, lightweight kinematics/logic simulation, and view projections. The project's **3D models** tab now connects it to the server and Design Context, alongside the existing CAD/STL viewer. See [engine integration](docs/PRODUCT_MODEL.md) for setup, APIs and limitations.
 
 ```text
 packages/core/src/design.ts       Seven-role and Design Context contracts
