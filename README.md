@@ -200,6 +200,8 @@ Run only one server process per workspace and application data directory. This A
 
 ## Code Layout
 
+The standalone Python [product model engine](model/README.md) provides the first executable DSL v2 contracts, snapshot compiler, lightweight kinematics/logic simulation, and view projections. It includes synthetic offline examples and tests. It is not yet connected to the server, Design Context, or frontend; see its README for supported calculations and explicit limitations.
+
 ```text
 packages/core/src/design.ts       Seven-role and Design Context contracts
 packages/core/src/pi.ts           Isolated Pi 1.3 SDK session factory
